@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-import Categories from './screens/Categories';
+import Calendar from './screens/Calendar';
 import Search from './screens/Search';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 export class App extends React.Component {
   render() {
@@ -18,34 +18,52 @@ export class App extends React.Component {
 }
 
 export default createBottomTabNavigator({
-  Home: {
+  Home: 
+  {
     screen: App,
-    navigationOptions:{
+    navigationOptions:
+    {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-home" color={tintColor} size={24}/>
+        <Ionicons name="ios-home" color={tintColor} size={24}/>
       )
     }
   },
-  Categories: {
-    screen: Categories,
-    navigationOptions:{
-      tabBarLabel: "Categories",
+  Calendar: 
+  {
+    screen: Calendar,
+    navigationOptions:
+    {
+      tabBarLabel: "Calendar",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-home" color={tintColor} size={24}/>
+        <Ionicons name="md-calendar" color={tintColor} size={24}/>
       )
     }
   },
-  Search: {
+  Search: 
+  {
     screen: Search,
-    navigationOptions:{
+    navigationOptions:
+    {
       tabBarLabel: "Search",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-home" color={tintColor} size={24}/>
+        <Ionicons name="ios-search" color={tintColor} size={24}/>
       )
     }
   },
 
+},{
+  tabBarOptions:
+  {
+    style:
+    {
+      borderTopWidth:0,
+      shadowOffset: { width: 5, height: 3 },
+      shadowColor: "black",
+      shadowOpacity: .5,
+      elevation: 5
+    }
+  }
 });
 const styles = StyleSheet.create({
   container: {
