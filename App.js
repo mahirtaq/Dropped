@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
-import Calendar from './screens/Calendar';
-import Search from './screens/Search';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import CalendarScreen from './screens/CalendarScreen';
+import SearchScreen from './screens/SearchScreen';
+import MoviesScreen from './screens/MoviesScreen';
 import { Ionicons } from '@expo/vector-icons';
 
 export class App extends React.Component {
-  render() {
+  render() 
+  {
     return (
       <View style={styles.container}>
         <Text>Open up Aour app!</Text>
@@ -16,43 +18,38 @@ export class App extends React.Component {
     );
   }
 }
-
+const SearchStack = createStackNavigator({
+  Search: SearchScreen,
+  Movies: MoviesScreen,
+});
 export default createBottomTabNavigator({
-  Home: 
-  {
-    screen: App,
-    navigationOptions:
+  Home: App,
+  Calendar: CalendarScreen,
+  Explore: SearchStack,
+},
+{
+navigationOptions: ({ navigation }) => ({
+  tabBarIcon: ({ tintColor }) => {
+    const { routeName } = navigation.state;
+    let iconName;
+    if (routeName === "Home")
     {
-      tabBarLabel: "Home",
-      tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-home" color={tintColor} size={24}/>
-      )
+      iconName = "ios-home";
     }
-  },
-  Calendar: 
-  {
-    screen: Calendar,
-    navigationOptions:
+    else if (routeName === "Calendar")
     {
-      tabBarLabel: "Calendar",
-      tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="md-calendar" color={tintColor} size={24}/>
-      )
+      iconName = "md-calendar";
     }
-  },
-  Search: 
-  {
-    screen: Search,
-    navigationOptions:
+    else if (routeName === "Explore")
     {
-      tabBarLabel: "Search",
-      tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-search" color={tintColor} size={24}/>
-      )
+      iconName = "ios-search";
     }
-  },
 
-},{
+    return <Ionicons name={iconName} size={25} color={tintColor}/>
+  }
+})
+},
+{
   tabBarOptions:
   {
     style:
@@ -73,3 +70,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

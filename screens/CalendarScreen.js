@@ -6,7 +6,7 @@ import
     Text
 } from 'react-native';
 
-export default class Calendar extends React.Component
+export default class CalendarScreen extends React.Component
 {
     render()
     {

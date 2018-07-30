@@ -6,11 +6,12 @@ import
     SafeAreaView,
     Platform,
     TextInput,
-    StatusBar 
+    StatusBar,
+    Button, 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Search extends React.Component
+export default class SearchScreen extends React.Component
 {
     componentWillMount()
     {
@@ -36,8 +37,12 @@ export default class Search extends React.Component
                             />
                         </View>
                     </View>
+                    <View style={styles.movies}>
+                        <Button title="Movies" onPress={() => this.props.navigation.navigate("Movies")}/>
+                    </View>
                 </View>
             </SafeAreaView>
+            
         );
     }
 }
@@ -70,5 +75,10 @@ const styles = StyleSheet.create({
         flex: 1,
         fontWeight: "200",
         backgroundColor: "white"
+    },
+    movies:
+    {
+        alignItems: "center",
+        justifyContent: "center",
     }
 })
