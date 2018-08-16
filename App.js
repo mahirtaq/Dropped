@@ -1,35 +1,66 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import CalendarScreen from './screens/CalendarScreen';
 import SearchScreen from './screens/SearchScreen';
 import MoviesScreen from './screens/MoviesScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { fetchDrops } from './backend/api';
 
-export class App extends React.Component {
+export class App extends React.Component 
+{
+  static defaultProps = 
+  {
+    fetchDrops
+  }
+
+  state = 
+  {
+    loading: false,
+    drops: [] //change to another data structure
+  }
+
+  async componentDidMount()
+  {
+    this.setState( { loading: true });
+    const data = await this.props.fetchDrops();
+    setTimeout(() => this.setState({ loading: false, drops: data.drops }), 2000);
+  }
   render() 
   {
+    if(this.state.loading)
+    {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large"/>
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
-        <Text>Open up Aour app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        {this.state.drops.map((drop, i) => (
+          <Text key={i}>{drop.title}</Text>
+        ))}
       </View>
     );
   }
 }
-const SearchStack = createStackNavigator({
+const SearchStack = createStackNavigator
+({
   Search: SearchScreen,
   Movies: MoviesScreen,
 });
-export default createBottomTabNavigator({
+export default createBottomTabNavigator
+({
   Home: App,
   Calendar: CalendarScreen,
   Explore: SearchStack,
 },
 {
-navigationOptions: ({ navigation }) => ({
-  tabBarIcon: ({ tintColor }) => {
+navigationOptions: ({ navigation }) => 
+({
+  tabBarIcon: ({ tintColor }) => 
+  {
     const { routeName } = navigation.state;
     let iconName;
     if (routeName === "Home")
@@ -62,7 +93,8 @@ navigationOptions: ({ navigation }) => ({
     }
   }
 });
-const styles = StyleSheet.create({
+const styles = StyleSheet.create
+({
   container: {
     flex: 1,
     backgroundColor: '#fff',
