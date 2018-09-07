@@ -2,14 +2,18 @@ import React from 'react';
 import 
 {  
     View, 
-    StyleSheet, 
     SafeAreaView,
     Platform,
     TextInput,
     StatusBar,
-    Button, 
+    StyleSheet,
+    Text,
+    ScrollView
 } from 'react-native';
+import ButtonBox from '../Components/ButtonBox';
+
 import { Ionicons } from '@expo/vector-icons';
+import { ApplicationStyles, Fonts, Colors, Metrics } from './styles';
 
 export default class SearchScreen extends React.Component
 {
@@ -20,6 +24,22 @@ export default class SearchScreen extends React.Component
         {
             this.startHeaderHeight = 100 + StatusBar.currentHeight;
         }
+    }
+    openMovies = () => 
+    {
+        this.props.navigation.navigate("Movies");
+    }
+    openShows = () =>
+    {
+        this.props.navigation.navigate("Shows");
+    }
+    openGames = () =>
+    {
+        this.props.navigation.navigate("Games");
+    }
+    openMusic = () =>
+    {
+        this.props.navigation.navigate("Music");
     }
     render()
     {
@@ -37,17 +57,26 @@ export default class SearchScreen extends React.Component
                             />
                         </View>
                     </View>
-                    <View style={styles.movies}>
-                        <Button title="Movies" onPress={() => this.props.navigation.navigate("Movies")}/>
-                    </View>
+                    <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={styles.container}>
+                        <View style={styles.buttonsContainer}>
+                            <ButtonBox onPress={this.openMovies} style={styles.moviesButton} text="Movies"/>
+                            <ButtonBox onPress={this.openShows} style={styles.moviesButton} text="TV Shows"/>
+                        </View>
+                        <View style={styles.buttonsContainer}>
+                            <ButtonBox onPress={this.openGames} style={styles.moviesButton} text="Video Games"/>
+                            <ButtonBox onPress={this.openMusic} style={styles.moviesButton} text="Music"/>
+                        </View>
+                    </ScrollView>
                 </View>
             </SafeAreaView>
             
         );
     }
 }
-
+//FIX INDIVIDUAL BUTTON STYLES
 const styles = StyleSheet.create({
+    ...ApplicationStyles.screen,
+    
     searchBar: 
     {
         flexDirection: "row", 
@@ -76,9 +105,24 @@ const styles = StyleSheet.create({
         fontWeight: "200",
         backgroundColor: "white"
     },
-    movies:
+    container: 
     {
-        alignItems: "center",
-        justifyContent: "center",
-    }
-})
+        marginBottom: 36,
+    },
+    buttonsContainer: 
+    {
+        flexDirection: 'row',
+        flex: 1
+    },
+    centered: 
+    {
+        alignItems: 'center'
+    },
+    moviesButton: 
+    {
+        borderColor: Colors.border,
+        borderTopWidth: 1,
+        borderRightWidth: 1,
+        borderBottomWidth: 1
+    },
+});

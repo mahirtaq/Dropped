@@ -4,8 +4,12 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import CalendarScreen from './screens/CalendarScreen';
 import SearchScreen from './screens/SearchScreen';
 import MoviesScreen from './screens/MoviesScreen';
+import ShowsScreen from './screens/ShowsScreen';
+import GamesScreen from './screens/GamesScreen';
+import MusicScreen from './screens/MusicScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchDrops } from './backend/api';
+//MAY NEED EXTENDED STYLE SHEET
 
 export class App extends React.Component 
 {
@@ -49,6 +53,9 @@ const SearchStack = createStackNavigator
 ({
   Search: SearchScreen,
   Movies: MoviesScreen,
+  Shows: ShowsScreen,
+  Games: GamesScreen,
+  Music: MusicScreen,
 });
 export default createBottomTabNavigator
 ({
